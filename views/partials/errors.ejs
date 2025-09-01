@@ -1,0 +1,9 @@
+<% if(locals.errors || locals.loginError ) { %>
+   <% if(loginError) errors = loginError %>
+    <ul>
+     <%   errors.forEach(error => { %>
+            <li><%= error.msg || error %></li>
+    <% }) %>
+    </ul>
+    
+<% } %>

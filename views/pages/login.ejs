@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploader</title>
+</head>
+<body>
+    <main>
+        <div>
+            <h1>Sign in</h1>
+            <p>Not a member yet? <a href="/user/register">Register</a> instead. </p>
+        </div>
+        <%- include("../partials/errors.ejs") %>
+        <form action="/user/login" method="post">
+            <div>
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" required autofocus>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" required>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

@@ -1,7 +1,6 @@
-
 const indexGet = (req, res) => {
-    return res.send("<h1>Hello, World</h1>");
-}
+    return req.isAuthenticated() ? res.render("pages/index") : res.redirect("/user/register");
+};
 
 module.exports = {
     indexGet,
