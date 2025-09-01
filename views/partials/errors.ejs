@@ -1,9 +1,8 @@
-<% if(locals.errors || locals.loginError ) { %>
-   <% if(loginError) errors = loginError %>
+<% const errors = locals.loginError?.length ? locals.loginError : locals.errors; %>
+<% if(errors.length) { %>
     <ul>
      <%   errors.forEach(error => { %>
             <li><%= error.msg || error %></li>
     <% }) %>
     </ul>
-    
 <% } %>

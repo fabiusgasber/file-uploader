@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploader</title>
+</head>
+<body>
+    <main>
+        <%- include("../partials/errors.ejs") %>
+        <form action="/file/upload" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="file">Choose a file to upload</label>
+                <input type="file" id="file" name="file" accept="*" required>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

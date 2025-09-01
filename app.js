@@ -9,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const indexRouter = require("./routers/indexRouter.js");
 const userRouter = require("./routers/userRouter.js");
+const fileRouter = require("./routers/fileRouter.js");
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -35,12 +36,14 @@ app.use((req, res, next) => {
 });
 app.use((req, res, next) => {
     res.locals.loginError = req.session.messages;
+    res.locals.errors = [];
     req.session.messages = [];
     next();
 })
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/", indexRouter);
 app.use("/user", userRouter);
+app.use("/file", fileRouter);
+app.use("/", indexRouter);
 
 app.use((err, req, res, next) => {
     console.error(err);
