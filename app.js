@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 const indexRouter = require("./routers/indexRouter.js");
 const userRouter = require("./routers/userRouter.js");
 const fileRouter = require("./routers/fileRouter.js");
+const folderRouter = require("./routers/folderRouter.js");
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -43,6 +44,7 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/user", userRouter);
 app.use("/file", fileRouter);
+app.use("/folder", folderRouter);
 app.use("/", indexRouter);
 
 app.use((err, req, res, next) => {

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploader</title>
+</head>
+<body>
+    <%- include("../partials/errors.ejs") %>
+    <form action="/folder/<%= folder.id %>/<%= folder.name %>/delete" method="post">
+        <fieldset>
+            <legend>Delete folder</legend>
+            <div>
+                <p id="deleteHint">Enter 'delete <%= folder.name %>' to delete folder. <strong>Warning:</strong> Possible subfolders will get deleted, too.</p>
+                <label for="deleteMsg">Delete confirmation</label>
+                <input type="text" id="deleteMsg" name="deleteMsg" aria-describedby="deleteHint" required>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+                <a href="/folder/<%= folder.id %>/<%= folder.name %>">Cancel</a>
+            </div>
+        </fieldset>
+    </form>
+</body>
+</html>

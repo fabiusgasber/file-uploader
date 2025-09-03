@@ -19,3 +19,23 @@ model User {
   username String @unique @db.VarChar(15)
   password String @db.VarChar(255)
 }
+
+model Folder {
+  id         String   @id @default(uuid())
+  name       String   @unique @db.VarChar(15)
+  protected  Boolean  @default(false)
+  parent     Folder?  @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  parentId   String?
+  subfolders Folder[] @relation("FolderHierarchy")
+  files      File[]
+}
+
+model File {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(255)
+  size      Float
+  extension String
+  createdAt DateTime @default(now())
+  Folder    Folder   @relation(fields: [folderId], references: [id])
+  folderId  String
+}

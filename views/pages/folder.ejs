@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploader</title>
+</head>
+<body>
+    <h1><%= folder.name %></h1>
+    <% if(folder.parentId) { %>
+        <a href="/folder/<%= folder.parent.id %>/<%= folder.parent.name %>"><%= folder.parent.name %></a>
+    <% } %>
+    <a href="/file/<%= folder.id %>/upload">Upload file</a>
+    <a href="/folder/<%= folder.id %>/<%= folder.name %>/create">Create new folder</a>
+    <% if(!folder.protected) { %>
+        <a href="/folder/<%= folder.id %>/<%= folder.name%>/edit">Edit</a>
+        <a href="/folder/<%= folder.id %>/<%= folder.name%>/delete">Delete</a>
+    <% } %>
+    <% if(folder.subfolders.length){ %>
+        <ul>
+           <% folder.subfolders.forEach(child => { %>
+                <li>
+                    <a href="/folder/<%= child.id %>/<%= child.name%>"><%= child.name %></a>
+                </li>
+           <% }) %>
+        </ul>
+    <% } %>
+</body>
+</html>

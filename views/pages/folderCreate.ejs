@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploader</title>
+</head>
+<body>
+    <%- include("../partials/errors.ejs") %>
+    <form method="post" action="/folder/<%= parentFolder.id %>/<%= parentFolder.name %>/create">
+        <div>
+            <label>Enter folder name</label>
+            <input type="text" id="folderName" name="folderName">
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+            <a href="/folder/<%= parentFolder.id %>/<%= parentFolder.name %>">Cancel</a>
+        </div>
+    </form>
+</body>
+</html>
