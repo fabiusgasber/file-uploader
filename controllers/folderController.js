@@ -17,7 +17,7 @@ const validateFolderEdit = [
 
 const folderGet = async (req, res) => {
     if(!req.isAuthenticated()) return res.redirect("/user/login");
-    const folder = await folderDb.getFolderById(req.params.folderId);
+    const folder = await folderDb.getFolderById(req.params.folderId, req.user);
     return res.render("pages/folder", { folder });
 };
 
@@ -29,7 +29,7 @@ const homeFolderGet = async (req, res) => {
 
 const folderCreateGet = async (req, res) => {
     if(!req.isAuthenticated()) return res.redirect("/user/login");
-    const parentFolder = await folderDb.getFolderById(req.params.folderId);
+    const parentFolder = await folderDb.getFolderById(req.params.folderId, req.user);
     return res.render("pages/folderCreate", { parentFolder });
 };
 
@@ -37,10 +37,10 @@ const folderCreatePost = [
     validateFolderCreate,
     async (req, res, next) => {
         const errors = validationResult(req);
-        const parentFolder = await folderDb.getFolderById(req.params.folderId);
+        const parentFolder = await folderDb.getFolderById(req.params.folderId, req.user);
         try {
             if(!errors.isEmpty()) return res.render("pages/folderCreate", { parentFolder, errors: errors.array() });
-            const createdFolder = await folderDb.createFolder(req.body.folderName, parentFolder);
+            const createdFolder = await folderDb.createFolder(req.body.folderName, parentFolder, req.user);
             return res.redirect(`/folder/${createdFolder.id}/${createdFolder.name}`);
         } catch (err) {
             console.error(err);
@@ -56,7 +56,7 @@ const folderCreatePost = [
 
 const folderEditGet = async (req, res) => {
     if(!req.isAuthenticated()) return res.redirect("/user/login");
-    const folder = await folderDb.getFolderById(req.params.folderId);
+    const folder = await folderDb.getFolderById(req.params.folderId, req.user);
     return res.render("pages/folderEdit", { folder });
 };
 
@@ -64,10 +64,10 @@ const folderEditPost = [
     validateFolderEdit,
     async (req, res, next) => {
         const errors = validationResult(req);
-        const folder = await folderDb.getFolderById(req.params.folderId);
+        const folder = await folderDb.getFolderById(req.params.folderId, req.user);
     try {
         if(!errors.isEmpty()) return res.render("pages/folderEdit", { folder, errors: errors.array() });
-        const updatedFolder = await folderDb.updateFoldername(folder, req.body.updatedFoldername);
+        const updatedFolder = await folderDb.updateFoldername(folder, req.body.updatedFoldername, req.user);
         return res.redirect(`/folder/${updatedFolder.id}/${updatedFolder.name}`);
     } catch (err) {
             console.error(err);
@@ -83,8 +83,8 @@ const folderEditPost = [
 
 const folderDeleteGet = async (req, res) => {
     if(!req.isAuthenticated()) return res.redirect("/user/login");
-    const homeFolder = await folderDb.getHome();
-    const folder = await folderDb.getFolderById(req.params.folderId);
+    const homeFolder = await folderDb.getHome(req.user);
+    const folder = await folderDb.getFolderById(req.params.folderId, req.user);
     return String(folder.id) === String(homeFolder.id) ? 
     res.redirect(`/folder/${folder.id}/${folder.name}`) : 
     res.render("pages/folderDelete", { folder });
@@ -93,8 +93,8 @@ const folderDeleteGet = async (req, res) => {
 const folderDeletePost = [
     validateFolderDelete,
     async (req, res) => {
-        const folder = await folderDb.getFolderById(req.params.folderId);
-        const homeFolder = await folderDb.getHome();
+        const folder = await folderDb.getFolderById(req.params.folderId, req.user);
+        const homeFolder = await folderDb.getHome(req.user);
         const errors = validationResult(req);
         if(!errors.isEmpty()) return res.render("pages/folderDelete", { folder, errors: errors.array() });
         if(String(homeFolder.id) === String(folder.id)) return res.render("pages/folderDelete", { folder, errors: [{ msg: "Not allowed to delete home folder."}] });

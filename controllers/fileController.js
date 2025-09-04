@@ -16,26 +16,26 @@ const validateDeleteFile = [
 
 const detailsFileGet = async (req, res) => {
     if(!req.isAuthenticated()) return res.redirect("/user/login");
-    const file = await fileDb.getFileById(req.params.fileId);
-    const folder = await folderDb.getFolderById(file.folderId);
+    const file = await fileDb.getFileById(req.params.fileId, req.user);
+    const folder = await folderDb.getFolderById(file.folderId, req.user);
     return res.render("pages/fileDetails", { file, folder });
 };
 
 const uploadFileGet = async (req, res) => {
     if(!req.isAuthenticated()) return res.redirect("/user/login");
-    const folder = await folderDb.getFolderById(req.params.folderId);
+    const folder = await folderDb.getFolderById(req.params.folderId, req.user);
     return res.render("pages/fileUpload", { folder });
 };
 
 const uploadFilePost = [
     upload.single("file"),
     async (req, res, next) => {
-        const folder = await folderDb.getFolderById(req.params.folderId);
+        const folder = await folderDb.getFolderById(req.params.folderId, req.user);
         if(!req.file) {
             await fileDb.deleteLocalFile(req.file);
             return res.render("pages/fileUpload", { errors: [ { msg: "Please select a file." }], folder });
         }
-        if(!req.file.size > VALID_FILE_SIZE) {
+        if(req.file.size > VALID_FILE_SIZE) {
             await fileDb.deleteLocalFile(req.file);
             return res.render("pages/fileUpload", { folder, errors: [ { msg: "Please select a file that is smaller than 10MB" }]});
         }
@@ -44,7 +44,7 @@ const uploadFilePost = [
             return res.render("pages/fileUpload", { folder, errors: [ { msg: `Filename must be shorter than ${VALID_FILE_NAME_LENGTH} characters. Please rename and try again.` }]});
         }
         try {
-            await fileDb.uploadFile(req.file, folder);
+            await fileDb.uploadFile(req.file, folder, req.user);
             return res.redirect(`/folder/${folder.id}/${folder.name}`);
         } catch (err) {
             console.error(err);
@@ -64,8 +64,8 @@ const uploadFilePost = [
 
 editFileGet = async (req, res) => {
     if(!req.isAuthenticated()) return res.redirect("/user/login");
-    const file = await fileDb.getFileById(req.params.fileId);
-    const folder = await folderDb.getFolderById(file.folderId);
+    const file = await fileDb.getFileById(req.params.fileId, req.user);
+    const folder = await folderDb.getFolderById(file.folderId, req.user);
     return res.render("pages/fileEdit", { file, folder });
 };
 
@@ -73,11 +73,11 @@ editFilePost = [
     validateEditFile,
     async(req, res, next) => {
         const errors = validationResult(req);
-        const file = await fileDb.getFileById(req.params.fileId);
-        const folder = await folderDb.getFolderById(file.folderId);
+        const file = await fileDb.getFileById(req.params.fileId, req.user);
+        const folder = await folderDb.getFolderById(file.folderId, req.user);
         if(!errors.isEmpty()) return res.status(400).render("pages/fileEdit", { file, errors: errors.array() });
         try {
-            await fileDb.updateFilename(file, req.body.updatedFilename);
+            await fileDb.updateFilename(file, req.body.updatedFilename, req.user);
             return res.redirect(`/folder/${folder.id}/${folder.name}`);
         } catch (err) {
             console.error(err);
@@ -93,8 +93,8 @@ editFilePost = [
 
 const deleteFileGet = async (req, res) => {
     if(!req.isAuthenticated()) return res.redirect("/user/login");
-    const file = await fileDb.getFileById(req.params.fileId);
-    const folder = await folderDb.getFolderById(file.folderId);
+    const file = await fileDb.getFileById(req.params.fileId, req.user);
+    const folder = await folderDb.getFolderById(file.folderId, req.user);
     return res.render("pages/fileDelete", { file, folder });
 };
 
@@ -102,18 +102,19 @@ const deleteFilePost = [
     validateDeleteFile,
     async (req, res) => {
         const errors = validationResult(req);
-        const file = await fileDb.getFileById(req.params.fileId);
-        const folder = await folderDb.getFolderById(file.folderId);
+        const file = await fileDb.getFileById(req.params.fileId, req.user);
+        const folder = await folderDb.getFolderById(file.folderId, req.user);
         if(!errors.isEmpty()) return res.render("pages/fileDelete", { file, folder, errors: errors.array() });
         if(String(req.body.deleteMsg) !== "delete file") return res.render("pages/fileDelete", { file, folder, errors: [{ msg: "Incorrect delete message."}] });
         await fileDb.deleteLocalFile(file);
-        await fileDb.deleteFile(file);
+        await fileDb.deleteFile(file, req.user);
         return res.redirect(`/folder/${folder.id}/${folder.name}`);
     }
 ];
 
 const downloadFileGet = async (req, res) => {
-    const file = await fileDb.getFileById(req.params.fileId);
+    if (!req.isAuthenticated()) return res.redirect("/user/login");
+    const file = await fileDb.getFileById(req.params.fileId, req.user);
     return res.download(file.url, file.name, (err) => {
         if(err) console.log(err);
     });

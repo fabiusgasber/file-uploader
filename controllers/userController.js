@@ -2,6 +2,7 @@ const userDb = require("../db/user.js");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const passport = require("../config/passport.js");
+const folderDb = require("../db/folder.js");
 
 const isUsernameNotInUse = async (value) => {
     const user = await userDb.getUserByUsername(value);
@@ -40,7 +41,8 @@ const registerPost = [
         }
         const { username, password } = req.body;
         const hashedPw = await bcrypt.hash(password, 10);
-        await userDb.createUser(username, hashedPw);
+        const user = await userDb.createUser(username, hashedPw);
+        await folderDb.populateFolders(user);
         res.redirect("/user/login");
     }
 ];
