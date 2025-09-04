@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploader</title>
+</head>
+<body>
+    <%- include("../partials/errors.ejs") %>
+    <form method="post" action="/file/<%= file.id %>/edit">
+        <div>
+            <label for="fileName">Edit file</label>
+            <input type="text" name="updatedFilename" id="fileName" minlength="1" maxlength="50" value="<%= file.name %>" required>
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+            <a href="/folder/<%= folder.id %>/<%= folder.name %>">Cancel</a>
+        </div>
+    </form>
+</body>
+</html>

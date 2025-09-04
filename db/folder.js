@@ -16,9 +16,9 @@ const FolderDb = (() => {
 
     const createFolder = async (name, parent) => await prisma.folder.create({ data: { name, parentId: parent.id }});
 
-    const getHome = async () => await prisma.folder.findFirstOrThrow({ where: { protected: true }});
+    const getHome = async () => await prisma.folder.findFirstOrThrow({ where: { protected: true }, include: { subfolders: true, files: true }});
 
-    const getFolderById = async (id) => await prisma.folder.findFirstOrThrow({ where: { id }, include: { parent: true, subfolders: true }});
+    const getFolderById = async (id) => await prisma.folder.findFirstOrThrow({ where: { id }, include: { parent: true, subfolders: true, files: true }});
 
     const getFolderByName = async (name) => await prisma.folder.findUnique({ where: { name }});
 

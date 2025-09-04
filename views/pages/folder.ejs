@@ -25,5 +25,19 @@
            <% }) %>
         </ul>
     <% } %>
+    <% if(folder.files.length) { %>
+        <ul>
+           <% folder.files.forEach(file => { %>
+                <li>
+                    <a href="/file/<%= file.id %>"><%= file.name %></a>
+                    <div>
+                        <a href="/file/<%= file.id %>/download">Download</a>
+                        <a href="/file/<%= file.id %>/edit">Edit</a>
+                        <a href="/file/<%= file.id %>/delete">Delete</a>
+                    </div>
+                </li>
+           <% }) %>
+        </ul>
+    <% } %>
 </body>
 </html>

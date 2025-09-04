@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploader</title>
+</head>
+<body>
+    <%- include("../partials/errors.ejs") %>
+    <form action="/file/<%= file.id %>/delete" method="post">
+        <fieldset>
+            <legend>Delete file </legend>
+            <div>
+                <p id="deleteHint">Enter 'delete file' to confirm deletion of '<%= file.name %>'. <strong>Warning:</strong> You can't undo this action. </p>
+                <label for="deleteMsg">Delete confirmation</label>
+                <input type="text" id="deleteMsg" name="deleteMsg" aria-describedby="deleteHint" required>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+                <a href="/folder/<%= folder.id %>/<%= folder.name %>">Cancel</a>
+            </div>
+        </fieldset>
+    </form>
+</body>
+</html>

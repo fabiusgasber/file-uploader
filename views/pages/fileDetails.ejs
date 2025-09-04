@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploader</title>
+</head>
+<body>
+    <a href="/folder/<%= folder.id %>/<%= folder.name %>">Back</a>
+    <table>
+        <thead>
+            <tr>
+                <th>File name</th>
+                <th>File size</th>
+                <th>File extension</th>
+                <th>Uploaded at</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= file.name %></td>
+                <td><%= (file.size / 1024 / 1024).toFixed(2) %> MB</td>
+                <td><%= file.extension %></td>
+                <td><%= file.createdAt %></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
