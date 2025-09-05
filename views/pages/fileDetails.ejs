@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Uploader</title>
-</head>
+<%- include("../partials/head.ejs") %>
 <body>
+    <%- include("../partials/header.ejs") %>
+    <main id="file-detail-container">
     <a href="/folder/<%= folder.id %>/<%= folder.name %>">Back</a>
     <table>
         <thead>
             <tr>
-                <th>File name</th>
-                <th>File size</th>
-                <th>File extension</th>
-                <th>Uploaded at</th>
+                <th scope="col">File name</th>
+                <th scope="col">File size</th>
+                <th scope="col">File extension</th>
+                <th scope="col">Uploaded at</th>
             </tr>
         </thead>
         <tbody>
@@ -21,9 +17,10 @@
                 <td><%= file.name %></td>
                 <td><%= (file.size / 1024 / 1024).toFixed(2) %> MB</td>
                 <td><%= file.extension %></td>
-                <td><%= file.createdAt %></td>
+                <td><%= new Date(file.createdAt).toLocaleString() %></td>
             </tr>
         </tbody>
     </table>
+    </main>
 </body>
 </html>

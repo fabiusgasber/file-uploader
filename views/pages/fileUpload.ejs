@@ -1,22 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Uploader</title>
-</head>
+<%- include("../partials/head.ejs") %>
 <body>
+    <%- include("../partials/header.ejs") %>
     <main>
         <%- include("../partials/errors.ejs") %>
         <form action="/file/<%= folder.id %>/upload" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Upload your files securely</legend>
             <div>
-                <label for="file">Choose a file to upload</label>
+                <label for="file">Choose a file</label>
                 <input type="file" id="file" name="file" accept="*" required>
             </div>
-            <div>
+            <div class="btn-container">
                 <button type="submit">Submit</button>
                 <a href="/folder/<%= folder.id %>/<%= folder.name %>">Cancel</a>
             </div>
+            </fieldset>
         </form>
     </main>
 </body>

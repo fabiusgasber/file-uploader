@@ -1,0 +1,234 @@
+*, :root {
+    margin: 0;
+    margin-top: 0;
+    margin-block-start: 0;
+    margin-inline-start: 0;
+    margin-block-end: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    list-style-type: none;
+}
+
+@font-face {
+    font-family: montserrat;
+    src: url("/fonts/Montserrat-VariableFont_wght.ttf");
+}
+
+body {
+    font-family: montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 1rem;
+    --gap: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--gap) * 3);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--gap) * 3);
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+button {
+    appearance: none;
+    border: none;
+    background-color: unset;
+    text-decoration: underline;
+    font-size: 13px;
+    font-family: monospace;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+a {
+    font-family: monospace;
+    color: unset;
+    font-size: 100%;
+}
+
+ul, ol {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+section, article {
+    gap: var(--gap);
+}
+
+table {
+    table-layout: fixed;
+    width: 80%;
+    min-width: 500px;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+td {
+    text-align: center;
+    vertical-align: text-bottom;
+    overflow-wrap: break-word;
+}
+
+input {
+    appearance: none;
+    border: 1px solid black;
+    padding: 5px;
+    font-family: inherit;
+    font-size: 100%;
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    font-family: montserrat;    
+}
+
+header>a {
+    text-decoration: none;
+    color: unset;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.heading {
+    margin-bottom: 1rem;
+}
+
+#file-list, #folder-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    justify-items: center;
+    gap: var(--gap);
+}
+
+#file-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+#file-list li, #folder-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: calc(var(--gap) / 2);
+}
+
+.page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    margin-top: 1rem;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    gap: var(--gap);
+    text-align: center;
+}
+
+.signup-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: var(--gap);
+}
+
+.signup-input label {
+    width: 150px;
+    overflow-wrap: break-word;
+}
+
+legend {
+    margin-bottom: 1rem;
+}
+
+.signup {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--gap);
+}
+
+.delete-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap);
+}
+
+#file-detail-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#index-link {
+    font-size: 1rem;
+}
+
+#poster {
+    object-fit: cover;
+    max-height: 500px;
+    max-width: 1200px;
+}
+
+#error-list {
+    flex-direction: column;
+}
+
+#error-list li {
+    list-style-type: square;
+    color: red;
+}
+
+.signup-container {
+    align-items: center;
+    gap: var(--gap);
+}
+
+.signup-container legend {
+    margin-bottom: 0;
+}
+
+.textlink {
+    font-family: montserrat;
+}

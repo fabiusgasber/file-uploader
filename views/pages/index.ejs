@@ -1,3 +1,9 @@
-<h1>Hello, <%= currentUser.username %> </h1>
-<a href="/user/logout">Log out</a>
-<a href="/folder/<%= homeFolder.id %>/<%= homeFolder.name %>">Your folders</a>
+<%- include("../partials/head.ejs") %>
+<%- include("../partials/header.ejs") %>
+<main>
+    <article class="container">
+            <img src="/images/poster.jpg" alt="poster" width="100%" height="auto" id="poster">
+            <h2>We keep your files secure.</h2>
+            <p>Upload, access, and manage your files. <a id="index-link" class="textlink" href="/folder/home">Visit your library</a> to get started.</p>
+    </article>
+</main>

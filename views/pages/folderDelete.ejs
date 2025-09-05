@@ -1,25 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Uploader</title>
-</head>
+<%- include("../partials/head.ejs") %>
 <body>
+    <%- include("../partials/header.ejs") %>
     <%- include("../partials/errors.ejs") %>
-    <form action="/folder/<%= folder.id %>/<%= folder.name %>/delete" method="post">
+    <main>
+        <form action="/folder/<%= folder.id %>/<%= folder.name %>/delete" method="post">
         <fieldset>
             <legend>Delete folder</legend>
-            <div>
-                <p id="deleteHint">Enter 'delete <%= folder.name %>' to delete folder. <strong>Warning:</strong> Possible subfolders will get deleted, too.</p>
+            <div class="delete-container">
+                <p id="deleteHint">Enter 'delete folder' to confirm deletion of '<%= folder.name %>'. <strong>Warning:</strong> Possible subfolders and files will get deleted, too.</p>
+                <div>
                 <label for="deleteMsg">Delete confirmation</label>
                 <input type="text" id="deleteMsg" name="deleteMsg" aria-describedby="deleteHint" required>
+                </div>
             </div>
-            <div>
+            <div class="btn-container">
                 <button type="submit">Submit</button>
                 <a href="/folder/<%= folder.id %>/<%= folder.name %>">Cancel</a>
             </div>
         </fieldset>
     </form>
+    </main>
 </body>
 </html>

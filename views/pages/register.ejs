@@ -1,33 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Uploader</title>
-</head>
+<%- include("../partials/head.ejs") %>
 <body>
-    <main>
-        <div>
-            <h1>Register</h1>
-            <p>Already a member? <a href="/user/login">Log in</a> instead.</p>
-        </div>
+    <%- include("../partials/header.ejs") %>
+    <main class="signup-container">
         <%- include("../partials/errors.ejs") %>
         <form action="/user/register" method="post">
-            <div>
+            <fieldset>
+                <legend class="signup">Register</legend>
+                <p>Already a member? <a href="/user/login" class="textlink">Log in</a> instead.</p>
+            <div class="signup-input">
                 <label for="username">Username</label>
                 <input id="username" name="username" type="text" minlength="3" maxlength="15" required autofocus>
             </div>
-            <div>
+            <div class="signup-input">
                 <label for="pw">Password</label>
                 <input id="pw" name="password" type="password" minlength="8" required>
             </div>
-            <div>
+            <div class="signup-input">
                 <label for="confirm-pw">Confirm Password</label>
                 <input id="confirm-pw" name="confirm-password" type="password" required>
             </div>
-            <div>
+            <div class="signup-input">
                 <button type="submit">Submit</button>
             </div>
+            </fieldset>
         </form>
     </main>
 </body>

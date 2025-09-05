@@ -1,43 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Uploader</title>
-</head>
+<%- include("../partials/head.ejs") %>
 <body>
-    <h1><%= folder.name %></h1>
-    <% if(folder.parentId) { %>
-        <a href="/folder/<%= folder.parent.id %>/<%= folder.parent.name %>"><%= folder.parent.name %></a>
-    <% } %>
-    <a href="/file/<%= folder.id %>/upload">Upload file</a>
-    <a href="/folder/<%= folder.id %>/<%= folder.name %>/create">Create new folder</a>
-    <% if(!folder.protected) { %>
-        <a href="/folder/<%= folder.id %>/<%= folder.name%>/edit">Edit</a>
-        <a href="/folder/<%= folder.id %>/<%= folder.name%>/delete">Delete</a>
-    <% } %>
-    <% if(folder.subfolders.length){ %>
-        <ul>
-           <% folder.subfolders.forEach(child => { %>
-                <li>
-                    <a href="/folder/<%= child.id %>/<%= child.name%>"><%= child.name %></a>
-                </li>
-           <% }) %>
-        </ul>
-    <% } %>
-    <% if(folder.files.length) { %>
-        <ul>
+    <%- include("../partials/header.ejs") %>
+    <main>
+        <section class="container">
+            <% if(folder.parentId) { %>
+                <% const parentName = folder.parent.name === "home" ? "Library" : folder.parent.name %>
+                <nav class="crumbs">
+                    <ol>
+                        <li><a href="/folder/<%= folder.parent.id %>/<%= folder.parent.name %>"> < <%= parentName %></a></li>
+                    </ol>
+                </nav>
+            <% } %>
+            <div class="container">
+                <h2><%= folder.name === "home" ? "Library" : folder.name %></h2>
+                <% if(!folder.protected) { %>
+                    <div class="btn-container">
+                        <a href="/folder/<%= folder.id %>/<%= folder.name%>/edit">Edit</a>
+                        <a href="/folder/<%= folder.id %>/<%= folder.name%>/delete">Delete</a>
+                    </div>
+                <% } %>
+            </div>
+            <div class="page-actions" aria-label="page actions">
+                <a href="/file/<%= folder.id %>/upload">Upload file</a>
+                <a href="/folder/<%= folder.id %>/<%= folder.name %>/create">Create folder</a>
+            </div>
+        </section>
+        <section>
+            <h2 class="heading">Folders</h2>
+                <% if(folder.subfolders.length){ %>
+                <ul id="folder-list">
+            <% folder.subfolders.forEach(child => { %>
+                    <li>
+                        <img src="/icons/folder.png" alt="folder" width="50px" height="50px">
+                        <a href="/folder/<%= child.id %>/<%= child.name%>"><%= child.name %></a>
+                    </li>
+            <% }) %>
+                </ul>
+            <% } %>
+        </section>
+        <section>
+            <h2 class="heading">Files</h2>
+            <% if(folder.files.length) { %>
+            <ul id="file-list">
            <% folder.files.forEach(file => { %>
                 <li>
+                    <img src="/icons/file.png" alt="file" width="50px" height="50px">
                     <a href="/file/<%= file.id %>"><%= file.name %></a>
-                    <div>
+                    <div class="page-actions">
                         <a href="/file/<%= file.id %>/download">Download</a>
                         <a href="/file/<%= file.id %>/edit">Edit</a>
                         <a href="/file/<%= file.id %>/delete">Delete</a>
                     </div>
                 </li>
            <% }) %>
-        </ul>
-    <% } %>
+            </ul>
+         <% } %>
+        </section>
+    </main>
 </body>
 </html>
