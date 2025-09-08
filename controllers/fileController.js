@@ -70,7 +70,8 @@ const fileController = (() => {
             const parentFolderId = folder.parent && folder.parent.id ? folder.parent.id : "";
             req.file.id = crypto.randomUUID();
             const path = `${req.user.id}/${parentFolderId}/${folder.id}/${req.file.id}`;
-            const { data } = await supabase.storage.from("files").upload(path, req.file.buffer, { contentType: req.file.mimetype, upsert: false });
+            const { data, error } = await supabase.storage.from("files").upload(path, req.file.buffer, { contentType: req.file.mimetype, upsert: false });
+            if(error) return next(error);
             req.file.path = data.path;
             await fileDb.uploadFile(req.file, folder, req.user);
             return res.redirect(`/folder/${folder.id}/${folder.name}`);

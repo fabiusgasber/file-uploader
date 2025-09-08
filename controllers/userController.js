@@ -29,7 +29,7 @@ body("confirm-password").trim().custom(confirmPassword),
 ]
 
 const registerGet = (req, res) => {
-    return res.render("pages/register");
+    return !req.isAuthenticated() ? res.render("pages/register") : res.redirect("/");
 };
 
 const registerPost = [
@@ -48,7 +48,7 @@ const registerPost = [
 ];
 
 const loginGet = (req, res) => {
-    return res.render("pages/login");
+    return !req.isAuthenticated() ? res.render("pages/login") : res.redirect("/");
 };
 
 const loginPost = (req, res, next) => {

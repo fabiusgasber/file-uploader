@@ -41,7 +41,7 @@ app.use((req, res, next) => {
     req.session.messages = [];
     next();
 })
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/public")));
 app.use("/user", userRouter);
 app.use("/file", fileRouter);
 app.use("/folder", folderRouter);
@@ -49,7 +49,8 @@ app.use("/", indexRouter);
 
 app.use((err, req, res, next) => {
     console.error(err);
-    res.status(err.statusCode || 500).send(err.message || "Internal server error");
+    if(err.code === "P2025" || err.code === "ENOENT") return res.status(404).render("pages/404");
+    return res.status(Number(err.statusCode) || 500).send("Internal server error");
 });
 
 app.listen(PORT, () => {

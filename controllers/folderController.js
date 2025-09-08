@@ -40,8 +40,8 @@ const folderCreatePost = [
         const parentFolder = await folderDb.getFolderById(req.params.folderId, req.user);
         try {
             if(!errors.isEmpty()) return res.render("pages/folderCreate", { parentFolder, errors: errors.array() });
-            const createdFolder = await folderDb.createFolder(req.body.folderName, parentFolder, req.user);
-            return res.redirect(`/folder/${createdFolder.id}/${createdFolder.name}`);
+            await folderDb.createFolder(req.body.folderName, parentFolder, req.user);
+            return res.redirect(`/folder/${parentFolder.id}/${parentFolder.name}`);
         } catch (err) {
             console.error(err);
             if(err.code === "P2002"){
@@ -100,7 +100,7 @@ const folderDeletePost = [
         if(String(homeFolder.id) === String(folder.id)) return res.render("pages/folderDelete", { folder, errors: [{ msg: "Not allowed to delete home folder."}] });
         if(String(req.body.deleteMsg) !== "delete folder") return res.render("pages/folderDelete", { folder, errors: [{ msg: "Incorrect delete message."}] });
         await folderDb.deleteFolder(folder.id, req.user);
-        return res.redirect(`/folder/${homeFolder.id}/${homeFolder.name}`)
+        return res.redirect(`/folder/${folder.parentId}/${folder.parent.name}`)
     }
 ];
 
