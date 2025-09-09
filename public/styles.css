@@ -126,10 +126,6 @@ header>a {
     gap: var(--gap);
 }
 
-#file-list {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-}
-
 #file-list li, #folder-list li {
     display: flex;
     flex-direction: column;
@@ -171,9 +167,6 @@ fieldset {
 
 legend {
     margin-bottom: 1rem;
-}
-
-.signup {
     font-size: 1.5rem;
     font-weight: bold;
 }

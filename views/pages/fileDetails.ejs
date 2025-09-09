@@ -3,6 +3,14 @@
     <%- include("../partials/header.ejs") %>
     <main id="file-detail-container">
     <a href="/folder/<%= folder.id %>/<%= folder.name %>">Back</a>
+    <div class="container">
+        <h2><%= file.name %></h2>
+        <div class="page-actions">
+            <a href="/file/<%= file.id %>/download">Download</a>
+            <a href="/file/<%= file.id %>/edit">Edit</a>
+            <a href="/file/<%= file.id %>/delete">Delete</a>
+        </div>
+    </div>
     <table>
         <thead>
             <tr>

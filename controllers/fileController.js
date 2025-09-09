@@ -108,7 +108,7 @@ const fileController = (() => {
             const folder = await folderDb.getFolderById(file.folderId, req.user);
             if(!errors.isEmpty()) return res.status(400).render("pages/fileEdit", { folder, file, errors: errors.array() });
             await fileDb.updateFilename(file, req.body.updatedFilename, req.user);
-            return res.redirect(`/folder/${folder.id}/${folder.name}`);
+            return res.redirect(`/file/${file.id}`);
         },
         handleEditErrors
     ];

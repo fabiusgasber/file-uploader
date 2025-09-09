@@ -5,7 +5,7 @@
         <%- include("../partials/errors.ejs") %>
         <form action="/file/<%= folder.id %>/upload" method="post" enctype="multipart/form-data">
             <fieldset>
-                <legend>Upload your files securely</legend>
+                <legend>Upload new file</legend>
             <div>
                 <label for="file">Choose a file</label>
                 <input type="file" id="file" name="file" accept="*" required>
