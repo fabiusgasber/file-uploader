@@ -4,5 +4,4 @@ const indexController = require("../controllers/indexController.js");
 
 router.get("/", indexController.indexGet);
 
-
 module.exports = router;

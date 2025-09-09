@@ -1,7 +1,9 @@
 const indexGet = async (req, res) => {
-    return req.isAuthenticated() ? res.render("pages/index") : res.redirect("/user/register");
+  return req.isAuthenticated()
+    ? res.render("pages/index")
+    : res.redirect("/user/register");
 };
 
 module.exports = {
-    indexGet,
-}
+  indexGet,
+};
