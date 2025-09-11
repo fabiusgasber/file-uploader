@@ -8,6 +8,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage, limits: { fileSize: VALID_FILE_SIZE } });
 const { body, validationResult } = require("express-validator");
 const supabase = require("../config/supabase.js");
+const crypto = require("node:crypto");
 
 const fileController = (() => {
   const validateEditFile = [
